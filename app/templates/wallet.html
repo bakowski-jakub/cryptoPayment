@@ -8,16 +8,43 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
-            <h3>Your wallet</h3>
-            <p>[[user wallet data here]]</b></p>
+            <h2>Your wallet</h3>
+            <br>
+            <h4>Enter your public key:</h4>
+            <form method="post">
+                <input type="text" name="pubkey" placeholder="Public Key">
+                <input type="submit" value="Submit", name="submit_key">
+            </form>
+            <br>
+            <h4>Account</h4>
+            <h5>{{ pub_key }} - balance:</h5>
+            <ul>
+                {% for bal in json_obj['balances']%}
+                    {% if bal['asset_type'] == 'native'%}
+                        <li>{{bal['balance']}} XLM</li>
+                    {% else %}
+                        <li>{{bal['balance']}} {{bal['asset_code']}}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         </div>
         <div class="col-sm-4">
-            <h3>Payment for licence and services</h3>
-            <p>[[service wallet data here]]</b></p>
+            <h2>Payment for licence and services</h3>
+            <br>
+            <h4>Payment wallet public key</h4>
+            <br>
+            <h5>GCEWVURVUOUL5545BHQYQRF6BONMDAA77IKVTODVI5DNMDXSKBYITR3Z</h5>
+            <br>
+            <br>
+            <br>
+            <img src="{{ url_for('static', filename='images/paymentAddress.png') }}" class="image" alt="Stellar Payment Address"/>
         </div>
         <div class="col-sm-4">
-            <h3>Last transactions</h3>
-            <p>[[transaction data here]]</b></p>
+            <h2>Last transactions</h3>
+            <form method="post">
+                <input type="submit" value="Get transactions", name="get_transaction">
+            </form>
+            <h5>{{ get_transaction }}</h5>
         </div>
     </div>
 </div>
